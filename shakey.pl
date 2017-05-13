@@ -1,25 +1,20 @@
-% Breitensuche (Queue) Welt, Start -> Goal
-% Startzustand -> Zustand 1/Zustand 2/Zustand 3
-% Ziel: Liste mit Operationen
-
 % ===============================================================
 
-% load helper with stack and set predicates
+% load helper with stack, queue and set predicates
 :- [lists_helper].
 
 % ===============================================================
 
-% planner(World, Current state, Goal, Made steps, Made actions).
+% planner(Current state, Goal, Made steps, Made actions).
 
 % base case: print all actions
 planner(State, Goal, _, Actions) :-
       equal_set(State, Goal),
-			print_stack(Actions).
+      print_stack(Actions).
 
 % find solution with depth-first search
 planner(State, Goal, Made_Steps, Made_Actions) :-
       action(Action, Preconditions, Effects),
-      %match_world_state(Action, World),
       match_conditions(Preconditions, State),
       change_state(State, Effects, Child_State),
       not(member_state(Child_State, Made_Steps)),
@@ -27,12 +22,13 @@ planner(State, Goal, Made_Steps, Made_Actions) :-
       stack(Action, Made_Actions, New_Actions),
       planner(Child_State, Goal, New_Made_Steps, New_Actions), !.
 
-/*planner(_, Goal, Steps, Actions) :-
+/*% breadth-first dearch
+planner(_, Goal, Steps, Actions) :-
       dequeue(Steps, State, _),
       equal_set(State, Goal),
 			print_stack(Actions).
 
-planner(World, Goal, Queue_Steps, Queue_Actions) :-
+planner(Goal, Queue_Steps, Queue_Actions) :-
       % get next stack of action/state
       dequeue(Queue_Steps, Stack_Steps, Temp_Queue_Steps),
       dequeue(Queue_Actions, Stack_Actions, Temp_Queue_Actions),
@@ -49,12 +45,6 @@ planner(World, Goal, Queue_Steps, Queue_Actions) :-
       stack(Action, Stack_Actions, _),
       enqueue(Stack_Actions, Temp_Queue_Actions, Next_Queue_Actions),
       planner(World, Goal, Next_Queue_Steps, Next_Queue_Actions), !.*/
-
-% check if step is ok with world state
-/*match_world_state(move(X, Y), World_State) :-
-      member(connect(X, Y), World_State);
-      member(connect(Y, X), World_State), !.
-match_world_state(_, _).*/
 
 % check pre conditions met set
 match_conditions(State1, State2) :- subset(State1, State2).
@@ -81,22 +71,22 @@ print_stack(Stack) :-
 % moves(Action, Preconditions, Effects)
 
 % move
-action(move(From,To),
+action(move(From, To),
       [onroom(From), connect(From, To)],
       [del(onroom(From)), add(onroom(To))]).
 
 % move back
-action(move(From,To),
+action(move(From, To),
       [onroom(To), connect(From, To)],
       [del(onroom(To)), add(onroom(From))]).
 
 % take object
-action(pickup(Object, Room),
+action(pickup(Room, Object),
       [handempty, onground(Object, Room), onroom(Room)],
       [del(handempty), del(onground(Object, Room)), add(holding(Object))]).
 
 % put object
-action(putdown(Object, Room),
+action(putdown(Room, Object),
       [holding(Object), onroom(Room)],
       [del(holding(Object)), add(handempty), add(onground(Object, Room))]).
 
@@ -111,9 +101,7 @@ go(World, Initial, Goal) :-
       append(World, Goal, Goal_State),
       planner(Initial_State, Goal_State, [Initial_State], []).
 
-%go(World, Initial, Goal) :- planner(World, Goal, [Initial], []).
-
-% example
+% examples
 test :- scenario(s1, World), go(World, [handempty, onroom(sleeproom), onground(burger, kitchen)], [handempty, onroom(sleeproom), onground(burger, sleeproom)]).
 %test :- scenario(s1, World), go(World, [handempty, onroom(kitchen), onground(burger, kitchen)], [handempty, onroom(sleeproom), onground(burger, sleeproom)]).
 
