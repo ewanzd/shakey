@@ -72,22 +72,22 @@ print_stack(Stack) :-
 
 % move
 action(move(From, To),
-      [onroom(From), connect(From, To)],
-      [del(onroom(From)), add(onroom(To))]).
+      [inroom(From), connect(From, To)],
+      [del(inroom(From)), add(inroom(To))]).
 
 % move back
 action(move(From, To),
-      [onroom(To), connect(From, To)],
-      [del(onroom(To)), add(onroom(From))]).
+      [inroom(To), connect(From, To)],
+      [del(inroom(To)), add(inroom(From))]).
 
 % take object
 action(pickup(Room, Object),
-      [handempty, onground(Object, Room), onroom(Room)],
+      [handempty, onground(Object, Room), inroom(Room)],
       [del(handempty), del(onground(Object, Room)), add(holding(Object))]).
 
 % put object
 action(putdown(Room, Object),
-      [holding(Object), onroom(Room)],
+      [holding(Object), inroom(Room)],
       [del(holding(Object)), add(handempty), add(onground(Object, Room))]).
 
 % ===============================================================
@@ -102,8 +102,8 @@ go(World, Initial, Goal) :-
       planner(Initial_State, Goal_State, [Initial_State], []).
 
 % examples
-test :- scenario(s1, World), go(World, [handempty, onroom(sleeproom), onground(burger, kitchen)], [handempty, onroom(sleeproom), onground(burger, sleeproom)]).
-%test :- scenario(s1, World), go(World, [handempty, onroom(kitchen), onground(burger, kitchen)], [handempty, onroom(sleeproom), onground(burger, sleeproom)]).
+test :- scenario(s1, World), go(World, [handempty, inroom(sleeproom), onground(burger, kitchen)], [handempty, inroom(sleeproom), onground(burger, sleeproom)]).
+%test :- scenario(s1, World), go(World, [handempty, inroom(kitchen), onground(burger, kitchen)], [handempty, inroom(sleeproom), onground(burger, sleeproom)]).
 
 % world scenarios
 scenario(s1, W) :- W = [connect(sleeproom, corridor), connect(corridor, livingroom), connect(livingroom, kitchen), connect(corridor, washroom)].
@@ -116,5 +116,5 @@ scenario(s1, W) :- W = [connect(sleeproom, corridor), connect(corridor, livingro
 
 % robo state
 %handempty
-%onroom(Room).
+%inroom(Room).
 %holding(Object).
