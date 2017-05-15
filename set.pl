@@ -1,20 +1,3 @@
-% ===============================================================
-
-% stack
-empty_stack([]).
-stack(Element, Stack, [Element|Stack]).
-
-% ===============================================================
-
-% add to queue
-enqueue(Element, Queue, NewQueue) :- append(Queue, [Element], NewQueue).
-
-% remove from queue
-dequeue([], [], []).
-dequeue([Element|RestQueue], Element, RestQueue).
-
-% ===============================================================
-
 % add to set
 add_to_set(Element, Set, Set) :- member(Element, Set), !.
 add_to_set(Element, Set, [Element|Set]).
