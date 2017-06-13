@@ -80,7 +80,16 @@ go(World, Initial, Goal) :-
     planner(Initial_State, Goal_State, [Initial_State], []).
 
 % examples
-test :- scenario(s1, World), go(World, [handempty, inroom(sleeproom), onground(burger, kitchen)], [handempty, inroom(sleeproom), onground(burger, sleeproom)]).
+test :-
+  scenario(s1, World),
+    go(
+      % static world
+      World,
+      % start condition
+      [handempty, inroom(sleeproom), onground(burger, kitchen)],
+      % end condition
+      [handempty, inroom(sleeproom), onground(burger, sleeproom)]
+    ).
 %test :- scenario(s1, World), go(World, [handempty, inroom(kitchen), onground(burger, kitchen)], [handempty, inroom(sleeproom), onground(burger, sleeproom)]).
 
 % world scenarios
