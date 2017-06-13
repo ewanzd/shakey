@@ -84,7 +84,12 @@ test :- scenario(s1, World), go(World, [handempty, inroom(sleeproom), onground(b
 %test :- scenario(s1, World), go(World, [handempty, inroom(kitchen), onground(burger, kitchen)], [handempty, inroom(sleeproom), onground(burger, sleeproom)]).
 
 % world scenarios
-scenario(s1, W) :- W = [connect(sleeproom, corridor), connect(corridor, livingroom), connect(livingroom, kitchen), connect(corridor, washroom)].
+scenario(s1, W) :- W = [
+  connect(sleeproom, corridor),
+  connect(corridor, livingroom),
+  connect(livingroom, kitchen),
+  connect(corridor, washroom)
+].
 
 % world state
 %connect(RoomA, RoomB).
