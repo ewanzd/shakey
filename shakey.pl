@@ -4,6 +4,7 @@
 :- [stack].
 :- [queue].
 :- [set].
+:- [actions].
 
 % ===============================================================
 
@@ -42,31 +43,6 @@ print_stack(Stack) :-
     stack(Element, Rest, Stack),
 	print_stack(Rest),
 	write(Element), nl.
-
-% ===============================================================
-
-% List with possible actions
-% moves(Action, Preconditions, Effects).
-
-% move
-action(move(From, To),
-    [inroom(From), connect(From, To)],
-    [del(inroom(From)), add(inroom(To))]).
-
-% move back
-action(move(From, To),
-    [inroom(To), connect(From, To)],
-    [del(inroom(To)), add(inroom(From))]).
-
-% take object
-action(pickup(Room, Object),
-    [handempty, onground(Object, Room), inroom(Room)],
-    [del(handempty), del(onground(Object, Room)), add(holding(Object))]).
-
-% put object
-action(putdown(Room, Object),
-    [holding(Object), inroom(Room)],
-    [del(holding(Object)), add(handempty), add(onground(Object, Room))]).
 
 % ===============================================================
 
