@@ -36,6 +36,8 @@ Change the scenario import in the main file.
 
 Create a custom search algorithm following the structure of one of the files in `searchAlgorithm/`.
 
+Change the search algorithm import in the main file.
+
 ### Custom actions
 
 Create actions in `actions/`. Import them in `actions.pl` and remove the ones you don't need.
