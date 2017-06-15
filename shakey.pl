@@ -2,7 +2,6 @@
 
 % load helper with stack, queue and set predicates
 :- [stack].
-:- [queue].
 :- [set].
 :- [actions].
 
