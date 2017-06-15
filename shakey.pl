@@ -37,13 +37,6 @@ change_state(State, [del(Element)|Remain], New_State) :-
     change_state(State, Remain, State2),
 	remove_from_set(Element, State2, New_State), !.
 
-% print all actions (nl = new Line)
-print_stack(Stack) :- empty_stack(Stack).
-print_stack(Stack) :-
-    stack(Element, Rest, Stack),
-	print_stack(Rest),
-	write(Element), nl.
-
 % ===============================================================
 
 % Start point
