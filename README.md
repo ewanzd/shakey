@@ -4,15 +4,21 @@
 
 Clone github repo
 
-```git clone https://github.com/ewanzd/shakey.git```
+```sh
+git clone https://github.com/ewanzd/shakey.git
+```
 
 In the projects root folder load the main prolog file
 
-```<your prolog interpreter> main.pl```
+```sh
+<your prolog interpreter> main.pl
+```
 
 In the prolog cli execute
 
-```test.```
+```sh
+test.
+```
 
 This is the test method.
 
