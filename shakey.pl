@@ -75,14 +75,3 @@ scenario(s1, W) :- W = [
   connect(livingroom, kitchen),
   connect(corridor, washroom)
 ].
-
-% world state
-%connect(RoomA, RoomB).
-
-% world state which could change
-%onground(Object, Room).
-
-% robo state
-%handempty
-%inroom(Room).
-%holding(Object).
