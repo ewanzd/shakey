@@ -2,6 +2,8 @@
 
 [Shakey](https://en.wikipedia.org/wiki/Shakey_the_robot) is the first general-purpose mobile robot to be able to reason about its own actions. In this project we simulate to logic part in [prolog](https://en.wikipedia.org/wiki/Prolog) to help shakey find an optimal way. For to do this we used the automated planning method [STRIPS](https://en.wikipedia.org/wiki/STRIPS).
 
+This project is our entrance in the world of artificial intelligence.
+
 ## Getting started
 
 Clone github repo
